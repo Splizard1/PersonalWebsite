@@ -109,11 +109,11 @@ public class Project {
         this.techStack = techStack;
     }
 
-    public String getRepoURL() {
+    public String getRepoUrl() {
         return repoUrl;
     }
 
-    public void setRepoURL(String repoUrlr) {
+    public void setRepoUrl(String repoUrl) {
         this.repoUrl = repoUrl;
     }
 
