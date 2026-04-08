@@ -3,6 +3,7 @@ package com.spliz.website.service;
 import com.spliz.website.entity.Project;
 import com.spliz.website.entity.Tag;
 import com.spliz.website.entity.User;
+import com.spliz.website.exception.NotFoundException;
 import com.spliz.website.repository.ProjectRepository;
 import com.spliz.website.repository.TagRepository;
 import org.springframework.stereotype.Service;
@@ -48,7 +49,7 @@ public class ProjectService {
     public Project updateProject(Long id, String title, String description, String techStack,
                                  String repoUrl, String liveUrl, Set<String> tagNames) {
         Project project = projectRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Project not found with id: " + id));
+                .orElseThrow(() -> new NotFoundException("Project not found with id: " + id));
 
         if (!project.getTitle().equals(title)) {
             project.setSlug(generateUniqueSlug(title, project.getId()));
@@ -66,7 +67,7 @@ public class ProjectService {
 
     public Project setFeatured(Long id, boolean featured) {
         Project project = projectRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Project not found with id: " + id));
+                .orElseThrow(() -> new NotFoundException("Project not found with id: " + id));
         project.setFeatured(featured);
         project.setUpdateTime(LocalDateTime.now());
         return projectRepository.save(project);

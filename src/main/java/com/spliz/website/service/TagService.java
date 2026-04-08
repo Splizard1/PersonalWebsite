@@ -1,6 +1,7 @@
 package com.spliz.website.service;
 
 import com.spliz.website.entity.Tag;
+import com.spliz.website.exception.ConflictException;
 import com.spliz.website.repository.TagRepository;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,7 @@ public class TagService {
     public Tag createTag(String name) {
 
         if (tagRepository.findByName(name).isPresent()) {
-            throw new RuntimeException("Tag already exists");
+            throw new ConflictException("Tag already exists: " + name);
         }
         String slug = name.toLowerCase()
                 .trim()

@@ -6,6 +6,7 @@ import com.spliz.website.service.TagService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,13 +34,9 @@ public class TagController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createTag(@Valid @RequestBody CreateTagRequest request) {
-        try {
-            Tag created = tagService.createTag(request.name());
-            return ResponseEntity.status(HttpStatus.CREATED).body(created);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
-        }
+    public ResponseEntity<Tag> createTag(@Valid @RequestBody CreateTagRequest request) {
+        Tag created = tagService.createTag(request.name());
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
     @DeleteMapping("/{id}")

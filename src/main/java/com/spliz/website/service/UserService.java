@@ -2,6 +2,7 @@ package com.spliz.website.service;
 
 import com.spliz.website.entity.Role;
 import com.spliz.website.entity.User;
+import com.spliz.website.exception.ConflictException;
 import com.spliz.website.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,10 +24,10 @@ public class UserService {
     //BCryptPasswordEncoder, then saves.
     public User registerUser(String username, String email, String rawPassword, Role role) {
         if (userRepository.existsByUsername(username)) {
-            throw new RuntimeException("Username already taken");
+            throw new ConflictException("Username already taken: " + username);
         }
         if (userRepository.existsByEmail(email)) {
-            throw new RuntimeException("Email already registered");
+            throw new ConflictException("Email already registered: " + email);
         }
 
         User user = new User();

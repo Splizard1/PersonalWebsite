@@ -29,6 +29,7 @@ public class SecurityConfig {
                 // Admin-only operations
                 .requestMatchers(HttpMethod.DELETE, "/api/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/api/tags").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.POST, "/api/users").hasRole("ADMIN")
                 // Any authenticated user can create/update posts and projects
                 .anyRequest().authenticated()
             )

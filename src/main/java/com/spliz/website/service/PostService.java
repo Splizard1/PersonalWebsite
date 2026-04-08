@@ -3,6 +3,7 @@ package com.spliz.website.service;
 import com.spliz.website.entity.Post;
 import com.spliz.website.entity.Tag;
 import com.spliz.website.entity.User;
+import com.spliz.website.exception.NotFoundException;
 import com.spliz.website.repository.PostRepository;
 import com.spliz.website.repository.TagRepository;
 import org.springframework.stereotype.Service;
@@ -44,7 +45,7 @@ public class PostService {
 
     public Post updatePost(Long id, String title, String content, String excerpt, Set<String> tagNames) {
         Post post = postRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Post not found with id: " + id));
+                .orElseThrow(() -> new NotFoundException("Post not found with id: " + id));
 
         if (!post.getTitle().equals(title)) {
             post.setSlug(generateUniqueSlug(title, post.getPostId()));
@@ -60,7 +61,7 @@ public class PostService {
 
     public Post publishPost(Long id) {
         Post post = postRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Post not found with id: " + id));
+                .orElseThrow(() -> new NotFoundException("Post not found with id: " + id));
         post.setPublished(true);
         post.setUpdateTime(LocalDateTime.now());
         return postRepository.save(post);
