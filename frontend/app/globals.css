@@ -4,6 +4,12 @@
 /* Use class-based dark mode so the toggle works */
 @custom-variant dark (&:is(.dark *));
 
+/* Swap highlight.js theme based on dark mode */
+.dark .hljs {
+  background: #0d1117;
+  color: #e6edf3;
+}
+
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);

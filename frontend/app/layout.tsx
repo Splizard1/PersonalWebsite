@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import "highlight.js/styles/github.css";
 import Nav from "./components/Nav";
 import ThemeProvider from "./components/ThemeProvider";
 

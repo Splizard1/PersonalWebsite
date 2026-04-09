@@ -1,6 +1,7 @@
 import { getPostBySlug } from "@/lib/api";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import MarkdownContent from "@/app/components/MarkdownContent";
 
 export default async function BlogPostPage(props: PageProps<"/blog/[slug]">) {
   const { slug } = await props.params;
@@ -45,8 +46,8 @@ export default async function BlogPostPage(props: PageProps<"/blog/[slug]">) {
           )}
         </header>
 
-        <div className="mt-10 prose prose-zinc max-w-none">
-          {post.content}
+        <div className="mt-10 prose prose-zinc dark:prose-invert max-w-none">
+          <MarkdownContent content={post.content} />
         </div>
       </article>
     </div>
