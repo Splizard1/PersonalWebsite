@@ -87,6 +87,10 @@ public class PostService {
         return postRepository.findByTagsContaining(tag);
     }
 
+    public List<Post> findAll() {
+        return postRepository.findAllByOrderByCreateTimeDesc();
+    }
+
     public List<Post> findAllPublished() {
         return postRepository.findByPublishedTrueOrderByCreateTimeDesc();
     }

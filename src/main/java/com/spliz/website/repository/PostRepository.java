@@ -17,5 +17,6 @@ public interface PostRepository extends JpaRepository<Post,Long> {
     List<Post> findByAuthorAndTagsContaining(User author, Tag tag);
     List<Post> findByTagsContaining(Tag tag);
     List<Post> findByPublishedTrueOrderByCreateTimeDesc();
+    List<Post> findAllByOrderByCreateTimeDesc();
 
 }

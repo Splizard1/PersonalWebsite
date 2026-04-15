@@ -16,8 +16,16 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Scott's Website",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  title: {
+    default: "Scott",
+    template: "%s | Scott",
+  },
   description: "Personal site — projects, blog, and more.",
+  openGraph: {
+    siteName: "Scott",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -28,14 +36,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} min-h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 transition-colors">
+      <body className="min-h-screen flex flex-col bg-gradient-to-br from-slate-100 to-indigo-300 dark:from-slate-900 dark:to-indigo-950 text-slate-800 dark:text-slate-100 transition-colors">
         <ThemeProvider>
           <Nav />
           <main className="flex-1">{children}</main>
-          <footer className="border-t border-zinc-200 dark:border-zinc-800 py-8 text-center text-sm text-zinc-500 dark:text-zinc-400">
+          <footer className="border-t border-slate-200 dark:border-slate-700 py-8 text-center text-sm text-slate-500 dark:text-slate-400">
             © {new Date().getFullYear()} Scott. All rights reserved.
           </footer>
         </ThemeProvider>

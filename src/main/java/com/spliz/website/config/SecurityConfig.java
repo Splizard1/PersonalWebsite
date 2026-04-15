@@ -26,6 +26,8 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 // Public read access
                 .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+                // Auth check endpoint — any authenticated user
+                .requestMatchers(HttpMethod.GET, "/api/auth/me").authenticated()
                 // Admin-only operations
                 .requestMatchers(HttpMethod.DELETE, "/api/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/api/tags").hasRole("ADMIN")

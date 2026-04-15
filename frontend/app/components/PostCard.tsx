@@ -11,19 +11,19 @@ export default function PostCard({ post }: { post: Post }) {
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className="block group border-b border-zinc-200 dark:border-zinc-800 py-6 last:border-b-0 hover:bg-zinc-50 dark:hover:bg-zinc-900 -mx-4 px-4 transition-colors rounded-lg"
+      className="block group border-b border-slate-200 dark:border-slate-700 py-6 last:border-b-0 hover:bg-slate-100 dark:hover:bg-slate-800 -mx-4 px-4 transition-colors rounded-lg"
     >
-      <p className="text-xs text-zinc-400 mb-1">{date}</p>
-      <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 group-hover:text-zinc-600 dark:group-hover:text-zinc-400 transition-colors">
+      <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">{date}</p>
+      <h3 className="font-semibold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
         {post.title}
       </h3>
-      <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400 line-clamp-2">{post.excerpt}</p>
+      <p className="mt-1 text-sm text-slate-500 dark:text-slate-400 line-clamp-2">{post.excerpt}</p>
       {post.tags.length > 0 && (
         <div className="mt-3 flex flex-wrap gap-1.5">
           {post.tags.map((tag) => (
             <span
               key={tag.id}
-              className="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 px-2 py-0.5 rounded-full"
+              className="text-xs bg-indigo-50 dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 px-2 py-0.5 rounded-full"
             >
               {tag.name}
             </span>
