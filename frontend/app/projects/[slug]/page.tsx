@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getProjectBySlug } from "@/lib/api";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import MarkdownContent from "@/app/components/MarkdownContent";
 
 export async function generateMetadata(props: PageProps<"/projects/[slug]">): Promise<Metadata> {
   const { slug } = await props.params;
@@ -70,7 +71,7 @@ export default async function ProjectPage(props: PageProps<"/projects/[slug]">) 
               rel="noopener noreferrer"
               className="px-4 py-2 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 text-sm font-medium rounded-lg hover:border-indigo-400 hover:text-indigo-600 dark:hover:border-indigo-500 dark:hover:text-indigo-400 transition-colors"
             >
-              View source
+              View on GitHub
             </a>
           )}
           {project.liveUrl && (
@@ -99,7 +100,9 @@ export default async function ProjectPage(props: PageProps<"/projects/[slug]">) 
             <h2 className="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wide">
               About
             </h2>
-            <p className="mt-2 text-slate-600 dark:text-slate-300 leading-relaxed">{project.description}</p>
+            <div className="mt-2 prose prose-slate dark:prose-invert max-w-none">
+              <MarkdownContent content={project.description} />
+            </div>
           </div>
         )}
       </div>

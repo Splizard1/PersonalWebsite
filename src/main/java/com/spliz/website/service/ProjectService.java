@@ -105,13 +105,13 @@ public class ProjectService {
     private Set<Tag> resolveOrCreateTags(Set<String> tagNames) {
         Set<Tag> tags = new HashSet<>();
         for (String name : tagNames) {
-            Tag tag = tagRepository.findByName(name).orElseGet(() -> {
-                String slug = name.toLowerCase()
-                        .trim()
-                        .replaceAll("[^a-z0-9\\s-]", "")
-                        .replaceAll("\\s+", "-");
-                return tagRepository.save(new Tag(name, slug));
-            });
+            String slug = name.toLowerCase()
+                    .trim()
+                    .replaceAll("[^a-z0-9\\s-]", "")
+                    .replaceAll("\\s+", "-");
+            Tag tag = tagRepository.findByName(name)
+                    .or(() -> tagRepository.findBySlug(slug))
+                    .orElseGet(() -> tagRepository.save(new Tag(name, slug)));
             tags.add(tag);
         }
         return tags;

@@ -23,7 +23,6 @@ export async function login(username: string, password: string): Promise<{ error
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     path: "/",
-    maxAge: 60 * 60 * 24 * 7, // 1 week
   });
 
   return {};

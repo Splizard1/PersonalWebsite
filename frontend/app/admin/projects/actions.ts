@@ -42,6 +42,7 @@ export async function toggleFeaturedAction(id: number, featured: boolean) {
   await setFeatured(auth, id, featured);
   revalidatePath("/admin/projects");
   revalidatePath("/projects");
+  revalidatePath("/");
 }
 
 export async function deleteProjectAction(id: number) {

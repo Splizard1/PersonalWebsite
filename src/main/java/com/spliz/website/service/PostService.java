@@ -87,6 +87,18 @@ public class PostService {
         return postRepository.findByTagsContaining(tag);
     }
 
+    public List<Post> findRelated(String slug, int limit) {
+        Post post = postRepository.findBySlug(slug)
+                .orElseThrow(() -> new NotFoundException("Post not found: " + slug));
+
+        return post.getTags().stream()
+                .flatMap(tag -> postRepository.findByTagsContaining(tag).stream())
+                .filter(p -> Boolean.TRUE.equals(p.getPublished()) && !p.getPostId().equals(post.getPostId()))
+                .distinct()
+                .limit(limit)
+                .toList();
+    }
+
     public List<Post> findAll() {
         return postRepository.findAllByOrderByCreateTimeDesc();
     }
@@ -99,13 +111,13 @@ public class PostService {
     private Set<Tag> resolveOrCreateTags(Set<String> tagNames) {
         Set<Tag> tags = new HashSet<>();
         for (String name : tagNames) {
-            Tag tag = tagRepository.findByName(name).orElseGet(() -> {
-                String slug = name.toLowerCase()
-                        .trim()
-                        .replaceAll("[^a-z0-9\\s-]", "")
-                        .replaceAll("\\s+", "-");
-                return tagRepository.save(new Tag(name, slug));
-            });
+            String slug = name.toLowerCase()
+                    .trim()
+                    .replaceAll("[^a-z0-9\\s-]", "")
+                    .replaceAll("\\s+", "-");
+            Tag tag = tagRepository.findByName(name)
+                    .or(() -> tagRepository.findBySlug(slug))
+                    .orElseGet(() -> tagRepository.save(new Tag(name, slug)));
             tags.add(tag);
         }
         return tags;

@@ -32,7 +32,7 @@ public class Project {
     @Column(length = 100, nullable = false,  unique = true)
     private String slug;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @Column

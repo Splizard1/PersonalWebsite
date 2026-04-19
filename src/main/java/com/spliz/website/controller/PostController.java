@@ -44,6 +44,13 @@ public class PostController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/{slug}/related")
+    public List<PostResponse> getRelatedPosts(@PathVariable String slug) {
+        return postService.findRelated(slug, 3).stream()
+                .map(PostResponse::from)
+                .toList();
+    }
+
     // --- Authenticated ---
 
     @GetMapping("/admin/all")

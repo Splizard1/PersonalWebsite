@@ -14,3 +14,48 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
+
+/* Page transition animations */
+::view-transition-old(root) {
+  animation: 180ms ease-in fade-out;
+}
+
+::view-transition-new(root) {
+  animation: 220ms ease-out fade-in;
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: blink 1s step-start infinite;
+}
+
+/* Full-page dot grid + gradient on the body */
+body {
+  background-image:
+    radial-gradient(circle, rgba(99,102,241,0.3) 1px, transparent 1px),
+    linear-gradient(to bottom right, #f1f5f9, #a5b4fc);
+  background-size: 28px 28px, 100% 100%;
+  background-attachment: fixed;
+}
+
+html.dark body {
+  background-image:
+    radial-gradient(circle, rgba(99,102,241,0.3) 1px, transparent 1px),
+    linear-gradient(to bottom right, #0f172a, #1e1b4b);
+  background-size: 28px 28px, 100% 100%;
+  background-attachment: fixed;
+}

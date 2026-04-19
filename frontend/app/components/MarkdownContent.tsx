@@ -7,6 +7,12 @@ export default function MarkdownContent({ content }: { content: string }) {
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
       rehypePlugins={[rehypeHighlight]}
+      components={{
+        img: ({ src, alt }) => (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={src} alt={alt ?? ""} referrerPolicy="no-referrer" className="max-w-full rounded" />
+        ),
+      }}
     >
       {content}
     </ReactMarkdown>

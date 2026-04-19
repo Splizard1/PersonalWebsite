@@ -62,6 +62,10 @@ export async function getPostBySlug(slug: string): Promise<Post> {
   return get(`/api/posts/${slug}`);
 }
 
+export async function getRelatedPosts(slug: string): Promise<Post[]> {
+  return get(`/api/posts/${slug}/related`);
+}
+
 // ---- Projects ----
 
 export async function getProjects(): Promise<Project[]> {
@@ -80,6 +84,35 @@ export async function getProjectBySlug(slug: string): Promise<Project> {
 
 export async function getTags(): Promise<Tag[]> {
   return get("/api/tags");
+}
+
+// ---- Comments ----
+
+export interface Comment {
+  id: number;
+  name: string;
+  body: string;
+  createTime: string;
+}
+
+export async function getComments(slug: string): Promise<Comment[]> {
+  const res = await fetch(`${API_URL}/api/posts/${slug}/comments`, { cache: "no-store" });
+  if (!res.ok) throw new Error(`API error ${res.status}`);
+  return res.json();
+}
+
+export async function postComment(slug: string, name: string, body: string): Promise<Comment> {
+  const res = await fetch(`${API_URL}/api/posts/${slug}/comments`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name, body }),
+    cache: "no-store",
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`API error ${res.status}: ${text}`);
+  }
+  return res.json();
 }
 
 // ---- Authenticated helpers (admin only) ----
@@ -198,4 +231,8 @@ export async function setFeatured(authHeader: string, id: number, featured: bool
 
 export async function deleteProject(authHeader: string, id: number): Promise<void> {
   await authFetch(`/api/projects/${id}`, authHeader, { method: "DELETE" });
+}
+
+export async function deleteComment(authHeader: string, id: number): Promise<void> {
+  await authFetch(`/api/comments/${id}`, authHeader, { method: "DELETE" });
 }

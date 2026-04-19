@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { getPostBySlug } from "@/lib/api";
+import { getPostBySlug, getComments, getRelatedPosts } from "@/lib/api";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import MarkdownContent from "@/app/components/MarkdownContent";
+import CommentSection from "@/app/components/CommentSection";
 
 export async function generateMetadata(props: PageProps<"/blog/[slug]">): Promise<Metadata> {
   const { slug } = await props.params;
@@ -34,11 +35,18 @@ export default async function BlogPostPage(props: PageProps<"/blog/[slug]">) {
     notFound();
   }
 
+  const [comments, related] = await Promise.all([
+    getComments(slug).catch(() => []),
+    getRelatedPosts(slug).catch(() => []),
+  ]);
+
   const date = new Date(post.createTime).toLocaleDateString("en-GB", {
     day: "numeric",
     month: "long",
     year: "numeric",
   });
+
+  const readTime = Math.max(1, Math.round(post.content.trim().split(/\s+/).length / 200));
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
@@ -51,7 +59,7 @@ export default async function BlogPostPage(props: PageProps<"/blog/[slug]">) {
           <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
             {post.title}
           </h1>
-          <p className="mt-2 text-sm text-slate-400 dark:text-slate-500">{date}</p>
+          <p className="mt-2 text-sm text-slate-400 dark:text-slate-500">{date} · {readTime} min read</p>
 
           {post.tags.length > 0 && (
             <div className="mt-4 flex flex-wrap gap-1.5">
@@ -71,6 +79,24 @@ export default async function BlogPostPage(props: PageProps<"/blog/[slug]">) {
           <MarkdownContent content={post.content} />
         </div>
       </article>
+
+      {related.length > 0 && (
+        <section className="mt-16 border-t border-slate-200 dark:border-slate-700 pt-10">
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-6">Related posts</h2>
+          <div className="space-y-3">
+            {related.map((p) => (
+              <Link key={p.id} href={`/blog/${p.slug}`} className="block group bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-4 py-3 hover:border-indigo-300 dark:hover:border-indigo-500 transition-colors">
+                <p className="font-medium text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                  {p.title} <span className="text-indigo-500 text-sm">→</span>
+                </p>
+                <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{p.excerpt}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <CommentSection slug={slug} initial={comments} />
     </div>
   );
 }
