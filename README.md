@@ -1,6 +1,7 @@
 # Personal Website
 
 A full-stack personal portfolio and blog built with Spring Boot and Next.js.
+[Link](splizbiz.up.railway.app)
 
 ## Tech Stack
 
@@ -30,48 +31,8 @@ A full-stack personal portfolio and blog built with Spring Boot and Next.js.
 
 ## Architecture
 
-```
-┌─────────────┐     REST API      ┌──────────────┐     ┌────────────┐
-│  Next.js    │ ───────────────▶  │  Spring Boot │────▶│ PostgreSQL │
-│  (Frontend) │ ◀───────────────  │  (Backend)   │     │    (DB)    │
-└─────────────┘                   └──────────────┘     └────────────┘
-```
-
 The frontend uses Next.js Server Components to fetch data at request time, with a 60-second revalidation cache on public endpoints. Admin routes are protected by a `proxy.ts` middleware that checks for an httpOnly session cookie.
 
-## Running Locally
-
-**Prerequisites:** Java 21, Maven, Node.js 18+, PostgreSQL
-
-**Backend**
-```bash
-# Set environment variables
-export ADMIN_PASSWORD=yourpassword
-
-# Run
-./mvnw spring-boot:run
-```
-
-**Frontend**
-```bash
-cd frontend
-cp .env.example .env.local  # then fill in values
-npm install
-npm run dev
-```
-
-**Environment variables**
-
-| Variable | Description |
-|---|---|
-| `ADMIN_PASSWORD` | Password for the admin account |
-| `DB_HOST` | PostgreSQL host |
-| `DB_NAME` | Database name |
-| `DB_USERNAME` | Database user |
-| `DB_PASSWORD` | Database password |
-| `NEXT_PUBLIC_API_URL` | Backend URL |
-| `NEXT_PUBLIC_SITE_URL` | Frontend URL |
-| `FRONTEND_URL` | Frontend URL (used by backend for CORS) |
 
 ## Project Structure
 
