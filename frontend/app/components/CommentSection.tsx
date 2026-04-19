@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { postComment } from "@/lib/api";
 import type { Comment } from "@/lib/api";
+import { inputCls, textareaCls } from "@/lib/styles";
 
 export default function CommentSection({ slug, initial }: { slug: string; initial: Comment[] }) {
   const [comments, setComments] = useState<Comment[]>(initial);
@@ -63,7 +64,7 @@ export default function CommentSection({ slug, initial }: { slug: string; initia
             value={name}
             onChange={(e) => setName(e.target.value)}
             maxLength={100}
-            className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+            className={`${inputCls} text-sm`}
           />
         </div>
         <div>
@@ -74,7 +75,7 @@ export default function CommentSection({ slug, initial }: { slug: string; initia
             required
             maxLength={2000}
             rows={4}
-            className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-y"
+            className={`${textareaCls} text-sm`}
           />
         </div>
         {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}

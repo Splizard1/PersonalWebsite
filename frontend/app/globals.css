@@ -43,8 +43,8 @@
   animation: blink 1s step-start infinite;
 }
 
-/* Full-page dot grid + gradient on the body */
-body {
+/* Background on html so it's always present regardless of route */
+html {
   background-image:
     radial-gradient(circle, rgba(99,102,241,0.3) 1px, transparent 1px),
     linear-gradient(to bottom right, #f1f5f9, #a5b4fc);
@@ -52,10 +52,13 @@ body {
   background-attachment: fixed;
 }
 
-html.dark body {
+html.dark {
   background-image:
     radial-gradient(circle, rgba(99,102,241,0.3) 1px, transparent 1px),
     linear-gradient(to bottom right, #0f172a, #1e1b4b);
   background-size: 28px 28px, 100% 100%;
-  background-attachment: fixed;
+}
+
+body {
+  background: transparent !important;
 }

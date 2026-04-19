@@ -1,9 +1,9 @@
 import "server-only";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { API_URL } from "./env";
 
 const COOKIE_NAME = "auth";
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function login(username: string, password: string): Promise<{ error?: string }> {
   const encoded = Buffer.from(`${username}:${password}`).toString("base64");

@@ -1,4 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+import { API_URL } from "./env";
 
 // ---- Types ----
 
@@ -42,6 +42,22 @@ export interface Project {
   tags: Tag[];
   createTime: string;
   updateTime: string;
+}
+
+export interface PostFormData {
+  title: string;
+  content: string;
+  excerpt: string;
+  tags: string[];
+}
+
+export interface ProjectFormData {
+  title: string;
+  description: string;
+  techStack?: string;
+  repoUrl?: string;
+  liveUrl?: string;
+  tags: string[];
 }
 
 // ---- Fetch helpers ----
@@ -149,10 +165,7 @@ export async function getPostById(authHeader: string, id: number): Promise<Post>
   return res.json();
 }
 
-export async function createPost(
-  authHeader: string,
-  data: { title: string; content: string; excerpt: string; tags: string[] }
-): Promise<Post> {
+export async function createPost(authHeader: string, data: PostFormData): Promise<Post> {
   const res = await authFetch("/api/posts", authHeader, {
     method: "POST",
     body: JSON.stringify(data),
@@ -160,11 +173,7 @@ export async function createPost(
   return res.json();
 }
 
-export async function updatePost(
-  authHeader: string,
-  id: number,
-  data: { title: string; content: string; excerpt: string; tags: string[] }
-): Promise<Post> {
+export async function updatePost(authHeader: string, id: number, data: PostFormData): Promise<Post> {
   const res = await authFetch(`/api/posts/${id}`, authHeader, {
     method: "PUT",
     body: JSON.stringify(data),
@@ -187,17 +196,7 @@ export async function getAllProjectsAdmin(authHeader: string): Promise<Project[]
   return res.json();
 }
 
-export async function createProject(
-  authHeader: string,
-  data: {
-    title: string;
-    description: string;
-    techStack?: string;
-    repoUrl?: string;
-    liveUrl?: string;
-    tags: string[];
-  }
-): Promise<Project> {
+export async function createProject(authHeader: string, data: ProjectFormData): Promise<Project> {
   const res = await authFetch("/api/projects", authHeader, {
     method: "POST",
     body: JSON.stringify(data),
@@ -205,18 +204,7 @@ export async function createProject(
   return res.json();
 }
 
-export async function updateProject(
-  authHeader: string,
-  id: number,
-  data: {
-    title: string;
-    description: string;
-    techStack?: string;
-    repoUrl?: string;
-    liveUrl?: string;
-    tags: string[];
-  }
-): Promise<Project> {
+export async function updateProject(authHeader: string, id: number, data: ProjectFormData): Promise<Project> {
   const res = await authFetch(`/api/projects/${id}`, authHeader, {
     method: "PUT",
     body: JSON.stringify(data),

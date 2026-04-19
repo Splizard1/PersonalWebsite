@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { createProjectAction, updateProjectAction } from "./actions";
 import type { Project } from "@/lib/api";
+import { inputCls, textareaCls } from "@/lib/styles";
 
 export default function ProjectForm({ project }: { project?: Project }) {
   const router = useRouter();
@@ -39,7 +40,7 @@ export default function ProjectForm({ project }: { project?: Project }) {
           type="text"
           required
           defaultValue={project?.title}
-          className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+          className={inputCls}
         />
       </div>
 
@@ -53,7 +54,7 @@ export default function ProjectForm({ project }: { project?: Project }) {
           required
           rows={4}
           defaultValue={project?.description}
-          className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-y"
+          className={textareaCls}
         />
       </div>
 
@@ -67,7 +68,7 @@ export default function ProjectForm({ project }: { project?: Project }) {
           type="text"
           defaultValue={project?.techStack}
           placeholder="e.g. Next.js, Spring Boot, PostgreSQL"
-          className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+          className={inputCls}
         />
       </div>
 
@@ -82,7 +83,7 @@ export default function ProjectForm({ project }: { project?: Project }) {
             type="url"
             defaultValue={project?.repoUrl}
             placeholder="https://github.com/..."
-            className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+            className={inputCls}
           />
         </div>
         <div>
@@ -95,7 +96,7 @@ export default function ProjectForm({ project }: { project?: Project }) {
             type="url"
             defaultValue={project?.liveUrl}
             placeholder="https://..."
-            className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+            className={inputCls}
           />
         </div>
       </div>
@@ -110,7 +111,7 @@ export default function ProjectForm({ project }: { project?: Project }) {
           type="text"
           defaultValue={project?.tags.map((t) => t.name).join(", ")}
           placeholder="e.g. React, TypeScript"
-          className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+          className={inputCls}
         />
       </div>
 

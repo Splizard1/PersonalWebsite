@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { createPostAction, updatePostAction } from "./actions";
 import type { Post } from "@/lib/api";
 import MarkdownContent from "@/app/components/MarkdownContent";
+import { inputCls, textareaCls } from "@/lib/styles";
 
 export default function PostForm({ post }: { post?: Post }) {
   const router = useRouter();
@@ -42,7 +43,7 @@ export default function PostForm({ post }: { post?: Post }) {
           type="text"
           required
           defaultValue={post?.title}
-          className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+          className={inputCls}
         />
       </div>
 
@@ -56,7 +57,7 @@ export default function PostForm({ post }: { post?: Post }) {
           required
           rows={2}
           defaultValue={post?.excerpt}
-          className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-y"
+          className={textareaCls}
         />
       </div>
 
@@ -86,7 +87,7 @@ export default function PostForm({ post }: { post?: Post }) {
             rows={20}
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-y"
+            className={`${textareaCls} font-mono text-sm`}
           />
         )}
         {/* Hidden input to carry content value when preview mode is active */}
@@ -103,7 +104,7 @@ export default function PostForm({ post }: { post?: Post }) {
           type="text"
           defaultValue={post?.tags.map((t) => t.name).join(", ")}
           placeholder="e.g. React, TypeScript, Web"
-          className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+          className={inputCls}
         />
       </div>
 
