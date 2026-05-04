@@ -3,7 +3,15 @@
 import { useRouter } from "next/navigation";
 import type { Tag } from "@/lib/api";
 
-export default function ProjectFilter({ tags, selectedTag }: { tags: Tag[]; selectedTag?: string }) {
+export default function TagFilter({
+  tags,
+  selectedTag,
+  basePath,
+}: {
+  tags: Tag[];
+  selectedTag?: string;
+  basePath: string;
+}) {
   const router = useRouter();
 
   if (tags.length === 0) return null;
@@ -11,7 +19,7 @@ export default function ProjectFilter({ tags, selectedTag }: { tags: Tag[]; sele
   return (
     <div className="flex flex-wrap gap-2 mt-6">
       <button
-        onClick={() => router.push("/projects")}
+        onClick={() => router.push(basePath)}
         className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
           !selectedTag
             ? "bg-indigo-600 text-white dark:bg-indigo-500"
@@ -23,7 +31,7 @@ export default function ProjectFilter({ tags, selectedTag }: { tags: Tag[]; sele
       {tags.map((tag) => (
         <button
           key={tag.slug}
-          onClick={() => router.push(`/projects?tag=${tag.slug}`)}
+          onClick={() => router.push(`${basePath}?tag=${tag.slug}`)}
           className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
             selectedTag === tag.slug
               ? "bg-indigo-600 text-white dark:bg-indigo-500"

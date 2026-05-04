@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getProjects } from "@/lib/api";
 import ProjectCard from "../components/ProjectCard";
-import ProjectFilter from "../components/ProjectFilter";
+import TagFilter from "../components/TagFilter";
 import type { Tag } from "@/lib/api";
 
 export const metadata: Metadata = {
@@ -34,7 +34,7 @@ export default async function ProjectsPage({
       <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Projects</h1>
       <p className="mt-3 text-slate-500 dark:text-slate-400">Things I&apos;ve built.</p>
 
-      <ProjectFilter tags={allTags} selectedTag={selectedTag} />
+      <TagFilter tags={allTags} selectedTag={selectedTag} basePath="/projects" />
 
       {filtered.length === 0 ? (
         <p className="mt-12 text-slate-400 dark:text-slate-500">No projects found.</p>
