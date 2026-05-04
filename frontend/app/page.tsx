@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   },
 };
 
-const stack = ["Java", "Spring Boot", "TypeScript", "Next.js", "React", "Tailwind CSS", "PostgreSQL", "Docker", "Python", "CSS3", "HTML5", "Haskell"];
+const stack = ["Java", "Spring Boot", "TypeScript","Kotlin", "Next.js", "React", "Tailwind CSS", "PostgreSQL", "Docker", "Python", "CSS3", "HTML5", "Haskell"];
 
 export default async function Home() {
   const [projects, posts] = await Promise.all([

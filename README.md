@@ -2,7 +2,7 @@
 
 A full-stack personal portfolio and blog built with Spring Boot and Next.js.
 
-[Visit my website](https://splizbiz.up.railway.app)
+[Visit my website](https://spliz.biz)
 
 ## Tech Stack
 
