@@ -84,11 +84,13 @@ export default async function Home() {
                 All projects →
               </Link>
             </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {projects.map((project) => (
-                <ProjectCard key={project.id} project={project} />
-              ))}
-            </div>
+              <div className="grid min-w-0 gap-4 sm:grid-cols-2">
+                  {projects.map((project) => (
+                      <div key={project.id} className="min-w-0">
+                          <ProjectCard project={project} />
+                      </div>
+                  ))}
+              </div>
           </section>
         )}
 
