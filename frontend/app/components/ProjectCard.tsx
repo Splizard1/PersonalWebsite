@@ -1,9 +1,6 @@
 import Link from "next/link";
 import { Project } from "@/lib/api";
 
-import Link from "next/link";
-import { Project } from "@/lib/api";
-
 export default function ProjectCard({ project }: { project: Project }) {
     return (
         <Link
